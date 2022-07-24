@@ -1,18 +1,18 @@
-require './Features/CRUD/index.rb'
+require './Features/CRUD/storageRepository.rb'
 
-def processInput()
+def processInput(argv)
     invalidObject = {
         :command => "Invalid", 
         :table => "Invalid"
     }; 
 
-    if(ARGV.length < 2)
+    if(argv.length < 2)
         return invalidObject;
     end
 
     return {
-        :command => ARGV[0], 
-        :table => ARGV[1]
+        :command => argv[0], 
+        :table => argv[1]
     };
 end
 
@@ -28,25 +28,46 @@ def isValidSQLCall(sqlInput)
     return isValidCommand && isValidTable;
 end
 
-def getProperties()
-    properties = {}
+def getProperties(props)
+    hash = {}
+    begin
+        parsedProps = props.gsub("\"", "").split(/ /);
 
-    for i in 2..ARGV.length-1 do
-        userInputSplited = ARGV[i].split('=');
-        properties.merge!({userInputSplited[0].to_sym => userInputSplited[1]})
-    end 
-    
-    return properties;
+        for propParsed in parsedProps do
+            trueProps = propParsed.gsub("_", " ");
+        
+            userInputSplited = trueProps.split('=');
+            hash.merge!({userInputSplited[0].to_sym => userInputSplited[1]})
+        end
+        
+        return hash;
+    rescue
+        return hash;
+    end
 end    
 
 def main()
-    commandAndTable = processInput();
-    if(isValidSQLCall(commandAndTable))
-        properties = getProperties();
-        dispatcherCommand(commandAndTable, properties);
-    else
-        puts "O comando que você digitou está incorreto, por favor digite novamente."
+    puts "Inciando...";
+    puts "Para encerrar o programa digite 'sair'";
+
+    while true do
+        argv = gets.chomp.split(/ /, 3);
+        userWantsFinalizeScript = argv[0] == 'sair';
+
+        if (userWantsFinalizeScript) 
+            break;
+        end
+
+        commandAndTable = processInput(argv);
+        if(isValidSQLCall(commandAndTable))
+            properties = getProperties(argv[2]);
+            dispatcherCommand(commandAndTable, properties);
+        else
+            puts "O comando que você digitou está incorreto, por favor digite novamente."
+        end
     end
+
+    puts "Encerrando...";
 end
 
 main

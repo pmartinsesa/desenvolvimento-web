@@ -6,5 +6,5 @@ ActiveRecord::Base.establish_connection :adapter => "sqlite3",
   
 ActiveRecord::Base.connection.create_table :contracts do |t|  
     t.string     :contractId
-    t.references :storage, foreign_key: true
+    t.references :employee, foreign_key: true
 end
