@@ -1,24 +1,9 @@
 require './Views/storageView.rb'
+require './Views/contractView.rb'
+require './Views/employeeView.rb'
+require './Views/productView.rb'
 
-$insert = -> (table, properties) {
-    puts "Iniciando a inserção de #{properties} na base de dados!";
-
-    storage = Storage.new (properties);
-    storage.save;
-
-    puts "Adicionado com sucesso!";
-}
-
-$update = -> (table, properties) { puts "updateando" }
-$delete = -> (table, properties) { puts "deletando" }
-$getAll = -> (table, properties) { 
-    puts "Inciando a listagem de #{table}";
-
-    Storage.find_each do |storage|
-        puts storage.to_json;
-    end
-    puts "Finalizado"
-}
+require './Features/CRUD/crud.rb'
 
 def dispatcherCommand(commandAndTable, properties)
     availableCommand = {
@@ -27,9 +12,16 @@ def dispatcherCommand(commandAndTable, properties)
         exclui: $delete,
         lista: $getAll
     };
+    repositories = {
+       'contracts': Contract,
+       'products': Product,
+       'storages': Storage,
+       'employees': Employee
+    }
 
     command = commandAndTable[:command];
     table = commandAndTable[:table];
+    repository = repositories[table.to_sym];
 
-    availableCommand[command.to_sym].(table, properties);
+   availableCommand[command.to_sym].(table, properties, repository);
 end
