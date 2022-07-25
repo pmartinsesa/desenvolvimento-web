@@ -3,8 +3,16 @@ $updateStorage = -> (table, properties) {
         puts "Iniciando a alteração de #{properties} na base de dados!\n\n";
 
         storage = Storage.find(properties[:id]);
-        storage.update(properties);
+        if (properties[:product])
+            storageProducts = Product.find(properties[:product]);
+            storage.products << storageProducts;
+        end
 
+        storage.name = properties[:name] ? properties[:name] : storage.name;
+        storage.cnpj = properties[:cnpj] ? properties[:cnpj] : storage.cnpj;
+
+        storage.save;
+        
         puts "Objeto alterado com sucesso!\n\n";
     rescue
         puts "Erro ao alterar o objeto, por favor verifique se os parametros passados estão corretos.\n\n";
@@ -56,7 +64,15 @@ $updateProduct = -> (table, properties) {
         puts "Iniciando a alteração de #{properties} na base de dados!\n\n";
 
         product = Product.find(properties[:id]);
-        product.update(properties);
+        if (properties[:storage])
+            storageProducts = Storage.find(properties[:storage]);
+            product.storages << storageProducts;
+        end
+
+        product.name = properties[:name] ? properties[:name] : product.name;
+        product.barcode = properties[:barcode] ? properties[:barcode] : product.barcode;
+
+        product.save;
 
         puts "Objeto alterado com sucesso!\n\n";
     rescue

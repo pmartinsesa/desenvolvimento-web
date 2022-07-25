@@ -1,8 +1,16 @@
 $createStorage = -> (table, properties) {
     begin
         puts "Iniciando a inserção de #{properties} na base de dados!\n\n";
-
-        storage = Storage.new(properties);
+        
+        storage = Storage.new();
+        storage.name = properties[:name];
+        storage.cnpj = properties[:cnpj];
+        
+        if (properties[:product])
+            storageProducts = Product.find(properties[:product]);
+            storage.products << storageProducts;
+        end
+        
         storage.save;
 
         puts "Objeto adicionado com sucesso!\n\n"; 
@@ -57,7 +65,15 @@ $createProduct = -> (table, properties) {
     begin
         puts "Iniciando a inserção de #{properties} na base de dados!\n\n";
 
-        product = Product.new(properties);
+        product = Product.new();
+        product.name = properties[:name];
+        product.barcode = properties[:barcode];
+        
+        if (properties[:storage])
+            storageProducts = Storage.find(properties[:storage]);
+            product.storages << storageProducts;
+        end
+        
         product.save;
 
         puts "Objeto adicionado com sucesso!\n\n"; 

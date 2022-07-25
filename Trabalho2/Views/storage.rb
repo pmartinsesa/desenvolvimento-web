@@ -5,5 +5,5 @@ ActiveRecord::Base.establish_connection :adapter => "sqlite3",
 
 class Storage < ActiveRecord::Base;
     has_many :employees, :dependent => :destroy
-    has_and_belongs_to_many :product, -> { uniq }, :dependent => :destroy
+    has_and_belongs_to_many :products, -> { distinct }
 end
