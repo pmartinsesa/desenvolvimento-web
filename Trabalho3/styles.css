@@ -1,0 +1,10 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f6f1f1;
+}
+
+.main-canvas {
+    border:1px solid #000000;
+}
