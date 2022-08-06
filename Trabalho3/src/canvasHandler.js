@@ -6,14 +6,35 @@ ctx.lineWidth = 10;
 line.moveTo(250, 250);
 line.lineTo(450, 250);
 
-
 console.log(line)
 ctx.stroke(line);
 
-canvas.on("click", (e) => {
-    console.log(e.originalEvent.x);
-    console.log(ctx.isPointInStroke(line, e.offsetX, e.offsetY));
-    console.log(e);
-})
+const moveu = (e) => {
+    console.log("mousemove");
+};
+
+
+canvas.on("mousedown", (e) => {
+    console.log("mousedown");
+    const hasClickInSomeLine = ctx.isPointInStroke(line, e.offsetX, e.offsetY)
+    if (hasClickInSomeLine) {
+        // canvas.on("mousemove", moveu);
+        document.getElementsByTagName("canvas")[0].addEventListener("mousemove", moveu, false);
+
+    }
+});
+
+// canvas.on("mousedown", (e) => {
+//     console.log("mousedown");
+// });
+
+canvas.on("mouseup", (e) => {
+    console.log("mouseup")
+    //console.log(canvas.removeEventListener("mousemove", moveu, false))
+    document.getElementsByTagName("canvas")[0].removeEventListener("mousemove", moveu, false);
+});
+
+
+
 console.log(canvas[0]);
 console.log(ctx);
