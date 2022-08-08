@@ -55,15 +55,12 @@ canvas.on("mousedown", (e) => {
         $("canvas").on("mousemove", (e) => {
             moveu(e, command, isRight);
         })
-        // document.getElementsByTagName("canvas")[0].addEventListener("mousemove", moveu(e, command), false);
     }
 });
 
 canvas.on("mouseup", () => {
     $("canvas").off("mousemove");
 });
-
-
 
 console.log(canvas[0]);
 console.log(ctx);
