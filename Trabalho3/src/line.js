@@ -1,17 +1,21 @@
-export class Line {
+export default class Line {
   constructor(x1, y1, x2, y2) {
     this.x1 = x1;
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
+  }
 
+  createLine(ctx) {
+    ctx.lineWidth = 10;
     this.line = new Path2D();
+
     this.line.moveTo(this.x1, this.y1);
     this.line.lineTo(this.x2, this.y2);
   }
 
   getLength() {
-    this.x1 - this.x2;
+    return this.x2 - this.x1;
   }
 
   getLinePartitions() {
@@ -19,29 +23,43 @@ export class Line {
     const partition = length / 3;
 
     return {
-      firstPartion: partition,
-      lastPartion: partition + partition
+      firstPartition: partition + this.x1,
+      lastPartition: partition + partition + this.x1
     };
   }
 
-  moveLine(event, command, isRight) {
-    lineLength = this.getLength();
+  moveLine(event, command, isLeft) {
+    const lineLength = this.getLength();
 
     if (command === "growLine") {
       console.log("growLine");
 
-      const growReference = isRight ? x2 : x1;
+      const growReference = isLeft ? this.x2 : this.x1;
 
       this.line = new Path2D();
-      this.line.moveTo(growReference, y1);
+      this.line.moveTo(growReference, this.y1);
       this.line.lineTo(event.offsetX, event.offsetY);
+
+      this.updateAxisPosition(growReference, this.y1, event.offsetX, event.offsetY);
 
     } else {
       console.log("center");
 
       this.line = new Path2D();
-      this.line.moveTo(event.offsetX - lineLength / 2, event.offsetY);
-      this.line.lineTo(event.offsetX + lineLength / 2, event.offsetY);
+      const x1 = event.offsetX - lineLength / 2;
+      const x2 = event.offsetX + lineLength / 2;
+      
+      this.line.moveTo(x1, event.offsetY);
+      this.line.lineTo(x2, event.offsetY);
+
+      this.updateAxisPosition(x1, event.offsetY, x2, event.offsetY);
     }
+  }
+
+  updateAxisPosition(x1, y1, x2, y2) {
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
   }
 }
