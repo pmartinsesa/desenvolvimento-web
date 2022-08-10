@@ -1,4 +1,4 @@
-export default class Line {
+class Line {
   constructor(x1, y1, x2, y2) {
     this.x1 = x1;
     this.y1 = y1;
@@ -15,7 +15,10 @@ export default class Line {
   }
 
   getLength() {
-    return this.x2 - this.x1;
+    const x2x1 = this.x2 - this.x1;
+    const y2y1 = this.y2 - this.y1;
+
+    return Math.sqrt(x2x1 * x2x1 + y2y1 * y2y1);
   }
 
   getLinePartitions() {
@@ -24,35 +27,48 @@ export default class Line {
 
     return {
       firstPartition: partition + this.x1,
-      lastPartition: partition + partition + this.x1
+      lastPartition: partition + partition + this.x1,
     };
   }
 
-  moveLine(event, command, isLeft) {
-    const lineLength = this.getLength();
-
+  moveLine(event, command, isLeft, rect) {
     if (command === "growLine") {
-      console.log("growLine");
-
-      const growReference = isLeft ? this.x2 : this.x1;
-
       this.line = new Path2D();
-      this.line.moveTo(growReference, this.y1);
-      this.line.lineTo(event.offsetX, event.offsetY);
+      let x1 = 0;
+      let y1 = 0;
+      let x2 = 0;
+      let y2 = 0;
 
-      this.updateAxisPosition(growReference, this.y1, event.offsetX, event.offsetY);
+      if (isLeft) {
+        x1 = event.offsetX;
+        y1 = event.offsetY;
+        x2 = this.x2;
+        y2 = this.y2;
+      } else {
+        x1 = this.x1;
+        y1 = this.y1;
+        x2 = event.offsetX;
+        y2 = event.offsetY;
+      }
+
+      this.line.moveTo(x1, y1);
+      this.line.lineTo(x2, y2);
+      this.updateAxisPosition(x1, y1, x2, y2);
 
     } else {
-      console.log("center");
-
       this.line = new Path2D();
-      const x1 = event.offsetX - lineLength / 2;
-      const x2 = event.offsetX + lineLength / 2;
-      
-      this.line.moveTo(x1, event.offsetY);
-      this.line.lineTo(x2, event.offsetY);
 
-      this.updateAxisPosition(x1, event.offsetY, x2, event.offsetY);
+      const centerX = this.x2 - this.x1;
+      const centerY = this.y2 - this.y1;
+
+      const x1 = event.offsetX - (centerX/2);
+      const y1 = event.offsetY - (centerY/2);
+      const x2 = x1 + centerX;
+      const y2 = y1 + centerY;
+
+      this.line.moveTo(x1, y1);
+      this.line.lineTo(x2, y2);
+      this.updateAxisPosition(x1, y1, x2, y2);
     }
   }
 
