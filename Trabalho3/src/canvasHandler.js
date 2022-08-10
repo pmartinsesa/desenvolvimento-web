@@ -1,3 +1,13 @@
+let lines = [];
+
+const FIRST_LINE_X1 = 250;
+const FIRST_LINE_Y1 = 250;
+const FIRST_LINE_X2 = 450;
+const FIRST_LINE_Y2 = 250;
+
+const canvas = $("#myCanvas");
+const ctx = canvas[0].getContext("2d");
+
 class Line {
   constructor(x1, y1, x2, y2) {
     this.x1 = x1;
@@ -24,7 +34,7 @@ class Line {
 
     return {
       firstPartition: partition + this.x1,
-      lastPartition: partition + partition + this.x1
+      lastPartition: partition + partition + this.x1,
     };
   }
 
@@ -40,23 +50,44 @@ class Line {
       this.line.moveTo(growReference, this.y1);
       this.line.lineTo(event.offsetX, event.offsetY);
 
-      isLeft ? 
-        this.updateAxisPosition(event.offsetX, this.y1, growReference, event.offsetY) : 
-        this.updateAxisPosition(growReference, this.y1, event.offsetX, event.offsetY)
-
+      isLeft
+        ? this.updateAxisPosition(
+            event.offsetX,
+            this.y1,
+            growReference,
+            event.offsetY
+          )
+        : this.updateAxisPosition(
+            growReference,
+            this.y1,
+            event.offsetX,
+            event.offsetY
+          );
     } else {
-      console.log("center");
+      console.log("oldy1", this.y1);
+      console.log("oldy2", this.y2);
+
+      console.log("event.offsetY", event.offsetY);
+      console.log("event.offsetX", event.offsetX);
+      const lineLength = (this.getLength()/2) + this.x1;
+
+      console.log("lineLength", lineLength);
+      console.log("(event.offsetX - lineLength)", (event.offsetX - lineLength));
+      console.log("(event.offsetY - lineLength)", (event.offsetY - lineLength));
+
 
       this.line = new Path2D();
-      const x1 = event.offsetX - lineLength / 2;
-      const x2 = event.offsetX + lineLength / 2;
-      // const y1 = event.offsetY - lineLength / 2;
-      // const y2 = event.offsetY + lineLength / 2;
-      
-      this.line.moveTo(x1, event.offsetY);
-      this.line.lineTo(x2, event.offsetY);
+      const x1 = this.x1 + (event.offsetX - lineLength);
+      const x2 = this.x2 + (event.offsetX - lineLength);
 
-      this.updateAxisPosition(x1, event.offsetY, x2, event.offsetY);
+      const y1 = this.y1 + (event.offsetX - lineLength);
+      const y2 = this.y2 + (event.offsetX - lineLength);
+
+      this.line.moveTo(x1, y1);
+      this.line.lineTo(x2, y2);
+      console.log("newy1", y1);
+      console.log("newy1", y2);
+      this.updateAxisPosition(x1, y1, x2, y2);
     }
   }
 
@@ -68,56 +99,73 @@ class Line {
   }
 }
 
-let lines = [];
+function main() {
+  lines.push(
+    new Line(FIRST_LINE_X1, FIRST_LINE_Y1, FIRST_LINE_X2, FIRST_LINE_Y2)
+  );
+  createAllLines();
+  printOnCanvas();
 
-const lineBeginX = 250;
-const lineBeginY = 250;
-const lineEndX = 450;
-const lineEndY = 250;
+  canvas.on("mousedown", (e) => {
+    const lineProcessing = hasClickInSomeLine(e.offsetX, e.offsetY);
+    if (lineProcessing.hasClick) {
+      const isRightClick = e.button === 2;
+      if (isRightClick) {
+        const lineLength = lineProcessing.selectedLine.getLength();
 
-const canvas = $("#myCanvas");
-const ctx = canvas[0].getContext("2d");
-lines.push(new Line(lineBeginX, lineBeginY, lineEndX, lineEndY));
-createAllLines();
-printOnCanvas();
+        const line1 = new Line(
+          lineProcessing.selectedLine.x1,
+          lineProcessing.selectedLine.y1,
+          lineProcessing.selectedLine.x1 + lineLength / 2,
+          lineProcessing.selectedLine.y1
+        );
 
-canvas.on("mousedown", (e) => {
-  const lineProcessing = hasClickInSomeLine(e.offsetX, e.offsetY);
-  if (lineProcessing.hasClick) {
-    const partitions = lineProcessing.selectedLine.getLinePartitions();
+        const line2 = new Line(
+          lineProcessing.selectedLine.x1 + lineLength / 2,
+          lineProcessing.selectedLine.y1,
+          lineProcessing.selectedLine.x2,
+          lineProcessing.selectedLine.y2
+        );
 
-    console.log("partitions.firstPartition", partitions.firstPartition)
-    console.log("partitions.lastPartition", partitions.lastPartition)
-    console.log("offsetX", e.offsetX)
-    console.log("offsetY", e.offsetY)
+        lines.splice(lineProcessing.index, 1);
+        lines.push(line1, line2);
 
-    const isCenter = e.offsetX > partitions.firstPartition && e.offsetX < partitions.lastPartition;
-    const isLeft = e.offsetX <= partitions.firstPartition;
+        console.log(lines);
 
-    console.log("partitions", partitions)
-    console.log("isCenter", isCenter)
-    console.log("isLeft", isLeft)
+        createAllLines();
+        printOnCanvas();
+      
+      } else {
+        const partitions = lineProcessing.selectedLine.getLinePartitions();
+        const isCenter =
+          e.offsetX > partitions.firstPartition &&
+          e.offsetX < partitions.lastPartition;
+        const isLeft = e.offsetX <= partitions.firstPartition;
+        const command = isCenter ? "center" : "growLine";
 
-    let command = isCenter ? "center" : "growLine";
+        $("canvas").on("mousemove", (e) => {
+          lineProcessing.selectedLine.moveLine(e, command, isLeft);
+          printOnCanvas();
+        });
+      }
+    }
+  });
 
-    $("canvas").on("mousemove", (e) => {
-      lineProcessing.selectedLine.moveLine(e, command, isLeft);
-      printOnCanvas();
-    });
-  }
-});
-
-canvas.on("mouseup", () => {
-  $("canvas").off("mousemove");
-});
+  canvas.on("mouseup", () => {
+    $("canvas").off("mousemove");
+  });
+}
 
 function hasClickInSomeLine(xAxis, yAxis) {
-  const lineProcessing = lines.filter((line) => ctx.isPointInStroke(line.line, xAxis, yAxis));
-  
+  const indexLine = lines.findIndex((line) =>
+    ctx.isPointInStroke(line.line, xAxis, yAxis)
+  );
+
   return {
-    selectedLine: lineProcessing[0] || [],
-    hasClick: lineProcessing.length > 0
-  }
+    selectedLine: lines[indexLine] || [],
+    hasClick: indexLine !== -1,
+    index: indexLine,
+  };
 }
 
 function createAllLines() {
@@ -127,8 +175,10 @@ function createAllLines() {
 }
 
 function printOnCanvas() {
+  ctx.clearRect(0, 0, 700, 500);
   lines.forEach((line) => {
-    ctx.clearRect(0, 0, 700, 500);
     ctx.stroke(line.line);
   });
 }
+
+main();
