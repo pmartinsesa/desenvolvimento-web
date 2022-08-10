@@ -44,18 +44,21 @@ function main() {
           printOnCanvas();
       
       } else {
-        const partitions = lineProcessing.selectedLine.getLinePartitions();
+        const distanceToBegin = lineProcessing.selectedLine.getDistanceOfInitialPoints(e.offsetX, e.offsetY)
+        const distanceToCenter = lineProcessing.selectedLine.getDistanceOfCenterPoints(e.offsetX, e.offsetY)
+        const distanceToEnd = lineProcessing.selectedLine.getDistanceOfFinalPoints(e.offsetX, e.offsetY)        
+        
         const isCenter =
-          e.offsetX > partitions.firstPartition &&
-          e.offsetX < partitions.lastPartition;
-        const isLeft = e.offsetX <= partitions.firstPartition;
+          Math.min(distanceToBegin, distanceToCenter, distanceToEnd) === distanceToCenter;
+
+        const isLeft = 
+          Math.min(distanceToBegin, distanceToCenter, distanceToEnd) === distanceToBegin;
+
         const command = isCenter ? "center" : "growLine";
 
         $("canvas").on("mousemove", (e) => {
-          const rect = canvasByDocument.getBoundingClientRect();
-          lineProcessing.selectedLine.moveLine(e, command, isLeft, rect);
+          lineProcessing.selectedLine.moveLine(e, command, isLeft);
           printOnCanvas();
-          console.log(lines)
         });
       }
     }

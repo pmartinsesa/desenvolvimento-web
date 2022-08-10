@@ -15,23 +15,28 @@ class Line {
   }
 
   getLength() {
-    const x2x1 = this.x2 - this.x1;
-    const y2y1 = this.y2 - this.y1;
+    const centerX = this.x2 - this.x1;
+    const centerY = this.y2 - this.y1;
 
-    return Math.sqrt(x2x1 * x2x1 + y2y1 * y2y1);
+    return Math.sqrt(centerX * centerX + centerY * centerY);
   }
 
-  getLinePartitions() {
-    const length = this.getLength();
-    const partition = length / 3;
-
-    return {
-      firstPartition: partition + this.x1,
-      lastPartition: partition + partition + this.x1,
-    };
+  getDistanceOfInitialPoints(a, b) {
+    return Math.hypot(a-this.x1, b-this.y1);
   }
 
-  moveLine(event, command, isLeft, rect) {
+  getDistanceOfFinalPoints(a, b) {
+    return Math.hypot(a-this.x2, b-this.y2);
+  }
+
+  getDistanceOfCenterPoints(a, b) {
+    const centerX = (this.x2 + this.x1) / 2;
+    const centerY = (this.y2 + this.y1) / 2;
+
+    return Math.hypot(a-centerX, b-centerY);
+  }
+
+  moveLine(event, command, isLeft) {
     if (command === "growLine") {
       this.line = new Path2D();
       let x1 = 0;
