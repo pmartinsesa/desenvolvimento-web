@@ -19,7 +19,7 @@ function processXml(xml) {
     alunos[grr] = aluno
   }
 
-  console.log(alunos);  
+  main(alunos);
 }
 
 function getGrrs(alunos) {
