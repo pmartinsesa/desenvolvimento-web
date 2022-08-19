@@ -1,6 +1,6 @@
 function main(alunos) {
   setTitleOfNavBar(alunos);
-  configureSearch();
+  configureSearch(alunos);
 }
 
 function setTitleOfNavBar(alunos) {
@@ -10,18 +10,33 @@ function setTitleOfNavBar(alunos) {
   navbar.innerHTML = navbarTitle;
 }
 
-function configureSearch() {
+function configureSearch(alunos) {
   const input = $("#searchInputField")[0];
   const button = $("#searchButton");
 
   button.click(() => {
     const userInput = input.value;
+    const selectedAluno = getWantUserInput(userInput.toUpperCase(), alunos); 
+    const userInputIsValid = selectedAluno.length > 0;
     
-    
+    if (userInputIsValid) {
+      updateGrid(selectedAluno);
+    }
+    else {
+      alert("Entrada inválida, por favor digite um GRR válido.")
+    }
     
     input.value = "";
   })  
 
   console.log(input)
   console.log(button)
+}
+
+function getWantUserInput(userInput, alunos) {
+  return alunos[userInput] || [];
+}
+
+function updateGrid(aluno) {
+  console.log("updateGrid = ", aluno);
 }
