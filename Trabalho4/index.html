@@ -5,7 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -15,10 +20,9 @@
     <title>Trabalho 4 - Desenvolvimento Web</title>
   </head>
   <body>
-    <!-- <div class="text-bg-primary p-3">Primary with contrasting color</div> -->
     <nav class="navbar bg-light">
       <div class="container-fluid">
-        <a id="navbarTitle" class="navbar-brand">Navbar</a>
+        <a id="navbarTitle" class="navbar-brand"></a>
         <form class="d-flex" role="search">
           <input id="searchInputField" class="form-control me-2" type="search" placeholder="GRR00000000" aria-label="Search">
           <button id="searchButton" class="btn btn-outline-success" type="button">Pesquisar</button>
@@ -28,7 +32,7 @@
    
     <div class="container">
       <div class="row row-cols-8 bg-light mt-5">
-        <div class="col border border-dark p-1 text-center text-bg-primary">1° Semestre</div>
+        <div class="col border border-dark p-1 text-center">1° Semestre</div>
         <div class="col border border-dark p-1 text-center">2° Semestre</div>
         <div class="col border border-dark p-1 text-center">3° Semestre</div>
         <div class="col border border-dark p-1 text-center">4° Semestre</div>
@@ -39,61 +43,75 @@
       </div>
 
       <div class="row row-cols-8 bg-light">
-        <div class="col border border-dark p-1 text-center">CI068</div>
-        <div class="col border border-dark p-1 text-center">CI210</div>
-        <div class="col border border-dark p-1 text-center">CI212</div>
-        <div class="col border border-dark p-1 text-center">CI215</div>
-        <div class="col border border-dark p-1 text-center">CI162</div>
-        <div class="col border border-dark p-1 text-center">CI163</div>
-        <div class="col border border-dark p-1 text-center">CI221</div>
-        <div class="col border border-dark p-1 text-center">OPT</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI068</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI210</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI212</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI215</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI162</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI163</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI221</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">OPT</div>
       </div>
 
       <div class="row row-cols-8 bg-light">
-        <div class="col border border-dark p-1 text-center">CI055</div>
-        <div class="col border border-dark p-1 text-center">CI056</div>
-        <div class="col border border-dark p-1 text-center">CI057</div>
-        <div class="col border border-dark p-1 text-center">CI062</div>
-        <div class="col border border-dark p-1 text-center">CI065</div>
-        <div class="col border border-dark p-1 text-center">CI165</div>
-        <div class="col border border-dark p-1 text-center">CI211</div>
-        <div class="col border border-dark p-1 text-center">OPT</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI055</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI056</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI057</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI062</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI065</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI165</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI211</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">OPT</div>
       </div>
 
       <div class="row row-cols-8 bg-light">
-        <div class="col border border-dark p-1 text-center">CM046</div>
-        <div class="col border border-dark p-1 text-center">CI067</div>
-        <div class="col border border-dark p-1 text-center">CI064</div>
-        <div class="col border border-dark p-1 text-center">CE003</div>
-        <div class="col border border-dark p-1 text-center">CI059</div>
-        <div class="col border border-dark p-1 text-center">CI209</div>
-        <div class="col border border-dark p-1 text-center">OPT</div>
-        <div class="col border border-dark p-1 text-center">OPT</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CM046</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI067</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI064</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CE003</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI059</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI209</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">OPT</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">OPT</div>
       </div>
 
       <div class="row row-cols-8 bg-light">
-        <div class="col border border-dark p-1 text-center">CM045</div>
-        <div class="col border border-dark p-1 text-center">CM005</div>
-        <div class="col border border-dark p-1 text-center">CI237</div>
-        <div class="col border border-dark p-1 text-center">CI058</div>
-        <div class="col border border-dark p-1 text-center">CI061</div>
-        <div class="col border border-dark p-1 text-center">CI218</div>
-        <div class="col border border-dark p-1 text-center">OPT</div>
-        <div class="col border border-dark p-1 text-center">OPT</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CM045</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CM005</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI237</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI058</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI061</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI218</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">OPT</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">OPT</div>
       </div>
 
       <div class="row row-cols-8 bg-light">
-        <div class="col border border-dark p-1 text-center">CM201</div>
-        <div class="col border border-dark p-1 text-center">CM202</div>
-        <div class="col border border-dark p-1 text-center">CI166</div>
-        <div class="col border border-dark p-1 text-center">CI164</div>
-        <div class="col border border-dark p-1 text-center">SA214</div>
-        <div class="col border border-dark p-1 text-center">CI220</div>
-        <div class="col border border-dark p-1 text-center">TG1</div>
-        <div class="col border border-dark p-1 text-center">TG2</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CM201</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CM202</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI166</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI164</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">SA214</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">CI220</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">TCC1</div>
+        <div id="class-cell" class="col border border-dark p-1 text-center">TCC2</div>
       </div>
     </div>
 
+    <div class="modal fade mw-100" id="historyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="historyModalLabel" aria-hidden="true">
+      <div class="modal-dialog mw-100">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="historyModalLabel">Histórico da Matéria</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="./src/gridController.js"></script>
     <script src="./src/xml2Object.js"></script>
     <script src="./src/processXml.js"></script>
