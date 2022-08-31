@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  storage: one
+  product: one
+
+two:
+  storage: two
+  product: two

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @products_storage %>
+
+<div>
+  <%= link_to "Edit this products storage", edit_products_storage_path(@products_storage) %> |
+  <%= link_to "Back to products storages", products_storages_path %>
+
+  <%= button_to "Destroy this products storage", @products_storage, method: :delete %>
+</div>
