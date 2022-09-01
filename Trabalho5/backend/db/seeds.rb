@@ -4,6 +4,8 @@ storages = Storage.create([
   {:name => "Loja C", :cnpj => "27082464000140"}
 ])
 
+puts(storages[0].inspect)
+
 employees =  Employee.create([
   {:name => "Funcionario1", :cpf => "1", :storage => storages[0]},
   {:name => "Funcionario2", :cpf => "2", :storage => storages[0]},
@@ -27,6 +29,10 @@ products = Product.create([
   {:name => "Produto8", :barcode => "568418564"},
   {:name => "Produto9", :barcode => "456564023"},
 ])
+
+storages[0].products << products[0]
+puts(storages[0].inspect)
+
 
 contracts = Contract.create([
   {:contractId => "123", :employee => employees[0]},

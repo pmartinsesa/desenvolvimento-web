@@ -1,16 +1,4 @@
 <%= form_with(model: contract) do |form| %>
-  <% if contract.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(contract.errors.count, "error") %> prohibited this contract from being saved:</h2>
-
-      <ul>
-        <% contract.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div>
     <%= form.label :contractId, style: "display: block" %>
     <%= form.text_field :contractId %>
@@ -21,7 +9,8 @@
     <%= form.text_field :employee_id %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mt-4">
+    <%= form.submit 'Save', :class => "btn btn-primary" %>
+    <%= link_to "Back", contracts_path , class: "btn btn-secondary" %>
   </div>
 <% end %>

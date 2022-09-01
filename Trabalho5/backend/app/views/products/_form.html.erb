@@ -21,7 +21,8 @@
     <%= form.text_field :barcode %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mt-4">
+    <%= form.submit 'Save', :class => "btn btn-primary" %>
+    <%= link_to "Back", products_path , class: "btn btn-secondary" %>
   </div>
 <% end %>

@@ -25,7 +25,7 @@
     </div>
   </div>
 </nav>
-<table class="table table-dark table-hover">
+<table class="table table-dark table-hover m-2 table-md">
   <thead>
     <tr>
       <th scope="col">CNPJ</th>
@@ -38,13 +38,13 @@
       <tr>
         <td><%=storage.cnpj%></td>
         <td><%=storage.name%> </td>
-        <td>
-          <%= link_to "Edit", edit_storage_path(storage), class: "btn btn-warning" %>
-          <%= button_to "Delete", storage, method: :delete, class: "btn btn-danger mt-1" %>
+        <td class="d-flex">
+          <%= link_to "Edit", edit_storage_path(storage), class: "btn btn-warning m-1"%>
+          <%= button_to "Delete", storage, method: :delete, class: "btn btn-danger m-1"%>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to "New Storage", new_storage_path, class: "btn btn-primary" %>
+<%= link_to "New Storage", new_storage_path, class: "btn btn-primary m-2" %>
