@@ -28,9 +28,14 @@
   </div>
 </nav>
 
-<%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+<%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-danger m-2" %>
+
 <% else %>
-<%= link_to 'Sign up', new_user_registration_path %>
-<%= link_to 'Sign in', new_user_session_path %>
+
+<div class="container-fluid">
+  <%= link_to "Sign up", new_user_registration_path, class: "btn btn-secondary m-2" %>
+  <%= link_to "Sign in", new_user_session_path, class: "btn btn-success m-2" %>
+</div>
+
 <% end %>
 
