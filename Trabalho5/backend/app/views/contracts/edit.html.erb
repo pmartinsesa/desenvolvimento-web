@@ -3,3 +3,10 @@
 <div class="m-5">
   <%= render "form", contract: @contract %>
 </div>
+
+<%if notice %>
+  <div class="alert alert-danger alert-dismissible fade show m-5" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <span><%= notice %></span>
+  </div>
+<% end %>

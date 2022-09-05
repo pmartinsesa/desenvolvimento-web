@@ -4,8 +4,6 @@ storages = Storage.create([
   {:name => "Loja C", :cnpj => "27082464000140"}
 ])
 
-puts(storages[0].inspect)
-
 employees =  Employee.create([
   {:name => "Funcionario1", :cpf => "1", :storage => storages[0]},
   {:name => "Funcionario2", :cpf => "2", :storage => storages[0]},
@@ -31,8 +29,30 @@ products = Product.create([
 ])
 
 storages[0].products << products[0]
+storages[1].products << products[0]
+storages[2].products << products[0]
+storages[0].products << products[1]
+storages[1].products << products[1]
+storages[0].products << products[2]
+storages[2].products << products[2]
+storages[0].products << products[3]
+storages[1].products << products[3]
+storages[2].products << products[3]
+storages[1].products << products[4]
+storages[2].products << products[4]
+storages[0].products << products[5]
+storages[1].products << products[5]
+storages[2].products << products[5]
+storages[0].products << products[6]
+storages[1].products << products[6]
+storages[2].products << products[6]
+storages[0].products << products[7]
+storages[1].products << products[7]
+storages[2].products << products[7]
+storages[0].products << products[8]
+storages[1].products << products[8]
+storages[2].products << products[8]
 puts(storages[0].inspect)
-
 
 contracts = Contract.create([
   {:contractId => "123", :employee => employees[0]},
