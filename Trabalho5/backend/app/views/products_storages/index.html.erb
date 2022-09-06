@@ -29,19 +29,21 @@
     </div>
   </div>
 </nav>
-<table class="table table-dark table-hover m-2 table-md">
-  <thead>
-    <tr>
-      <th scope="col">Storage ID</th>
-      <th scope="col">Product ID</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @productsOnStorages.each do |productsStorage| %>
+<%if @productsOnStorages %>
+  <table class="table table-dark table-hover m-2 table-md">
+    <thead>
       <tr>
-        <td><%=productsStorage[1]%></td>
-        <td><%=productsStorage[2]%> </td>
+        <th scope="col">Storage ID</th>
+        <th scope="col">Product ID</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @productsOnStorages.each do |productsStorage| %>
+        <tr>
+          <td><%=productsStorage[1]%></td>
+          <td><%=productsStorage[2]%> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<%end%>

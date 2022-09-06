@@ -21,6 +21,11 @@
     <%= form.text_field :barcode %>
   </div>
 
+  <div>
+    <%= form.label :storage_id, style: "display: block" %>
+    <%= form.text_field :storage_id %>
+  </div>
+
   <div class="mt-4">
     <%= form.submit 'Save', :class => "btn btn-primary" %>
     <%= link_to "Back", products_path , class: "btn btn-secondary" %>

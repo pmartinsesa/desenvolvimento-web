@@ -21,7 +21,16 @@ class StoragesController < ApplicationController
 
   # POST /storages or /storages.json
   def create
-    @storage = Storage.new(storage_params)
+    real_storage_params = storage_params.extract!(:cnpj, :name);
+    @storage = Storage.new(real_storage_params)
+    
+    begin
+      pd = Product.find(storage_params[:product_id])
+      @storage.products << pd;  
+    rescue 
+      logger.info "Product dont exist"
+    end
+
     respond_to do |format|
       if @storage.save
         format.html { redirect_to storage_url(@storage), notice: "Storage was successfully created." }
@@ -35,8 +44,15 @@ class StoragesController < ApplicationController
 
   # PATCH/PUT /storages/1 or /storages/1.json
   def update
+    real_storage_params = storage_params.extract!(:cnpj, :name);
+    begin
+      pd = Product.find(storage_params[:product_id])
+      @storage.products << pd;  
+    rescue 
+      logger.info "Product dont exist"
+    end
     respond_to do |format|
-      if @storage.update(storage_params)
+      if @storage.update(real_storage_params)
         format.html { redirect_to storage_url(@storage), notice: "Storage was successfully updated." }
         format.json { render :show, status: :ok, location: @storage }
       else
@@ -64,6 +80,6 @@ class StoragesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def storage_params
-      params.require(:storage).permit(:cnpj, :name)
+      params.require(:storage).permit(:cnpj, :name, :product_id)
     end
 end
