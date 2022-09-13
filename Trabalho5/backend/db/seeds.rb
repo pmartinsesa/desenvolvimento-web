@@ -52,7 +52,6 @@ storages[2].products << products[7]
 storages[0].products << products[8]
 storages[1].products << products[8]
 storages[2].products << products[8]
-puts(storages[0].inspect)
 
 contracts = Contract.create([
   {:contractId => "123", :employee => employees[0]},
@@ -66,3 +65,10 @@ contracts = Contract.create([
   {:contractId => "901", :employee => employees[8]},
 ])
 
+users = User.create([
+   {:email => "admin@admin", :password => "123123", :admin => true},
+   {:email => "user@user", :password => "123123", :admin => false},
+ ])
+users.each do |u|
+   u.save()
+end
