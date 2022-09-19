@@ -26,7 +26,7 @@
     - migrate: possuí as migrações definidas pelas models e views
 
 ## EXECUÇÃO
-  dentro da pasta backend:
+  ### Dentro da pasta backend:
     - bundle install
     - execute rails db:migrate
     - execute rails db:reset
