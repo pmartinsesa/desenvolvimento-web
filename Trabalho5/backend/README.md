@@ -27,10 +27,11 @@
 
 ## EXECUÇÃO
   dentro da pasta backend:
-    1: execute rails db:migrate
-    2: execute rails db:reset
-    3: execute rails s
-    4: acesse http://127.0.0.1:3000/ no seu navegador
+    - bundle install
+    - execute rails db:migrate
+    - execute rails db:reset
+    - execute rails s
+    - acesse http://127.0.0.1:3000/ no seu navegador
 
 ## Usuários
   ### admin
